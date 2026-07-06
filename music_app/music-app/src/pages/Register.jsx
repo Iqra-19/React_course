@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -80,6 +79,8 @@ export default function Register() {
     return (
     <div>
         <form className='form' onSubmit={handleSubmit}>
+
+            <h2>Create Account</h2>
 
             <div className='input-filed'>
                 <label>Name:</label> <br />

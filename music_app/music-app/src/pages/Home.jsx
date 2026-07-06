@@ -1,8 +1,12 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import SongList from "../components/SongList";
+import { useState } from "react";
 
 export default function Home() {
+  
+  const [search, setSearch] = useState("");
+  
   return (
     <div className="home">
 
@@ -10,11 +14,14 @@ export default function Home() {
 
       <div className="content">
 
-        <Navbar />
+        <Navbar 
+          search={search}
+          setSearch={setSearch}
+        />
 
         <h2>Trending Songs</h2>
 
-        <SongList />
+        <SongList search={search}/>
 
       </div>
 

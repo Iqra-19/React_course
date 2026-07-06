@@ -1,5 +1,7 @@
-export default function Navbar() {
-  return (
+export default function Navbar( {search, setSearch} ) {
+  
+    return (
+    
     <nav className="navbar">
       <div className="logo">
         🎵 Music App
@@ -9,6 +11,8 @@ export default function Navbar() {
         type="text"
         placeholder="Search songs..."
         className="search"
+        value={search}
+        onChange={ (e) => setSearch(e.target.value) }
       />
 
       <div className="user">

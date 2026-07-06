@@ -1,6 +1,6 @@
 import SongCard from "./SongCard";
 
-export default function SongList() {
+export default function SongList( {search} ) {
   const songs = [
     {
       id: 1,
@@ -22,14 +22,19 @@ export default function SongList() {
     },
   ];
 
+  const filteredSongs = songs.filter((song) =>
+        song.title.toLowerCase().includes(search.toLowerCase())
+    );
+
   return (
     <div className="song-list">
-      {songs.map((song) => (
+      {filteredSongs.map((song) => (
         <SongCard
           key={song.id}
           song={song}
         />
       ))}
+
     </div>
   );
 }
