@@ -23,7 +23,7 @@ export default function SongList( {search} ) {
   ];
 
   const filteredSongs = songs.filter((song) =>
-        song.title.toLowerCase().includes(search.toLowerCase())
+        song.title?.toLowerCase().includes(search?.toLowerCase())
     );
 
   return (

@@ -62,7 +62,7 @@ export default function Register() {
         const newUser = {
             id: Date.now(),
             name: trimmedName,
-            email: trimmedEmail,
+            email: trimmedEmail.toLowerCase(),
             password: trimmedPassword
         } 
         users.push(newUser);
