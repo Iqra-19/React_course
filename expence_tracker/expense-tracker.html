@@ -1,0 +1,61 @@
+<div className="app-container">
+
+    <h1>Expense Tracker</h1>
+    <p className="subtitle">Track your daily expenses easily.</p>
+
+    <form className="expense-form">
+
+        <label>Expense Title</label>
+        <input
+            type="text"
+            placeholder="Enter expense title"
+        />
+
+        <label>Amount (₹)</label>
+        <input
+            type="number"
+            placeholder="Enter amount"
+        />
+
+        <button type="submit">
+            + Add Expense
+        </button>
+
+        <p className="error">
+            Title is required
+        </p>
+
+    </form>
+
+    <div className="summary-card">
+        <span>Total Expense</span>
+        <h2>₹750.00</h2>
+    </div>
+
+    <div className="expense-list">
+
+        <div className="expense-item">
+            <div>
+                <h3>Internet Charge</h3>
+                <p>₹500</p>
+            </div>
+
+            <button className="delete-btn">
+                Delete
+            </button>
+        </div>
+
+        <div className="expense-item">
+            <div>
+                <h3>Train Ticket</h3>
+                <p>₹250</p>
+            </div>
+
+            <button className="delete-btn">
+                Delete
+            </button>
+        </div>
+
+    </div>
+
+</div>
