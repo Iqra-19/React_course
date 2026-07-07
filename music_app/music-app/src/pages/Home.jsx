@@ -1,23 +1,13 @@
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import { useOutletContext } from "react-router-dom";
+
 import SongList from "../components/SongList";
-import { useState } from "react";
 
 export default function Home( { favorites, toggleFavorite, playlist, togglePlaylist, }) {
   
-  const [search, setSearch] = useState("");
+    const { search } = useOutletContext();
   
   return (
-    <div className="home">
-
-      <Sidebar />
-
-      <div className="content">
-
-        <Navbar 
-          search={search}
-          setSearch={setSearch}
-        />
+    <div className="page">
 
         <h2>Trending Songs</h2>
 
@@ -30,7 +20,5 @@ export default function Home( { favorites, toggleFavorite, playlist, togglePlayl
         />
 
       </div>
-
-    </div>
   );
 }

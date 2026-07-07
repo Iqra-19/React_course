@@ -1,24 +1,27 @@
 import SongList from "../components/SongList";
+import { useOutletContext } from "react-router-dom";
 
 export default function Playlist({
-    favorites,
-    toggleFavorite,
-    playlist,
-    togglePlaylist,
+  favorites,
+  toggleFavorite,
+  playlist,
+  togglePlaylist,
 }) {
-    return (
-        <>
-            <h2>My Playlist</h2>
 
-            <SongList
-                search=""
-                favorites={favorites}
-                toggleFavorite={toggleFavorite}
-                playlist={playlist}
-                togglePlaylist={togglePlaylist}
-                showFavorites={false}
-                showPlaylist={true}
-            />
-        </>
-    );
+  const { search } = useOutletContext();
+
+  return (
+    <div className="page">
+      <h2>My Playlist</h2>
+
+      <SongList
+        search={search}
+        favorites={favorites}
+        toggleFavorite={toggleFavorite}
+        playlist={playlist}
+        togglePlaylist={togglePlaylist}
+        showPlaylist
+      />
+    </div>
+  );
 }

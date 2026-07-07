@@ -1,15 +1,15 @@
 import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {useState } from "react";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Playlist from "./pages/Playlist";
-import { use, useState } from "react";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
+
+import Layout from "./components/Layout";
 
 function App() {
   
@@ -54,9 +54,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Routes with layout */}
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route 
+        
+        {/* Routes with layout */}
+        <Route element ={ <Layout/> }>
+          <Route 
             path="/home" 
             element={<Home  
               favorites={favorites} 
@@ -89,6 +94,7 @@ function App() {
               />
           }
       />
+        </Route>
 
       </Routes>
     </BrowserRouter>
