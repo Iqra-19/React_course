@@ -318,7 +318,15 @@ form div p{
 }
 
 
+.heart {
+  color: gray;
+  font-size: 22px;
+  cursor: pointer;
+}
 
+.heart.active {
+  color: red;
+}
 /* ==================================================
             RESPONSIVE
 ================================================== */

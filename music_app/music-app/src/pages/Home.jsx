@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import SongList from "../components/SongList";
 import { useState } from "react";
 
-export default function Home() {
+export default function Home( { favorites, toggleFavorite, playlist, togglePlaylist, }) {
   
   const [search, setSearch] = useState("");
   
@@ -21,7 +21,13 @@ export default function Home() {
 
         <h2>Trending Songs</h2>
 
-        <SongList search={search}/>
+        <SongList 
+          search = {search}
+          favorites = {favorites}
+          toggleFavorite = {toggleFavorite}
+          playlist = {playlist}
+          togglePlaylist = {togglePlaylist}
+        />
 
       </div>
 

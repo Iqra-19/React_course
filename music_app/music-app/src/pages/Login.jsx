@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {use, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -29,14 +29,18 @@ export default function Login() {
         }
 
         const users = JSON.parse(localStorage.getItem("users")) || [];
+        console.log(users);
         const user = users.find(
-            (user) => 
-                user.email === trimEmail.toLowerCase() &&
-                user.password === trimPassword
-        )
+            (user) => user.email === trimEmail.toLowerCase()
+        );
 
-        if(!user){
-            setError("User not found");
+        if (!user) {
+            setError("Email is not registered");
+            return;
+        }
+
+        if (user.password !== trimPassword) {
+            setError("Incorrect password");
             return;
         }
 

@@ -5,7 +5,7 @@ export default function Sidebar() {
     <aside className="sidebar">
       <h2>🎵 Music App</h2>
 
-      <Link to="/">🏠 Home</Link>
+      <Link to="/home">🏠 Home</Link>
 
       <Link to="/favorites">❤️ Favorites</Link>
 
