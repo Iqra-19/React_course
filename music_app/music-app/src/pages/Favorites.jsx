@@ -2,6 +2,7 @@ import SongList from "../components/SongList";
 import { useOutletContext } from "react-router-dom";
 
 export default function Favorites({
+  songs,
   favorites,
   toggleFavorite,
   playlist,
@@ -15,6 +16,7 @@ export default function Favorites({
       <h2>My Favorites</h2>
 
       <SongList
+        songs = {songs}
         search={search}
         favorites={favorites}
         toggleFavorite={toggleFavorite}

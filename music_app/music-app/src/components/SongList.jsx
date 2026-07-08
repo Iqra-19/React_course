@@ -1,26 +1,7 @@
 import SongCard from "./SongCard";
 
-export default function SongList( {search, favorites, toggleFavorite, showFavorites=false, playlist, togglePlaylist, showPlaylist=false } ) {
-  const songs = [
-    {
-      id: 1,
-      title: "Believer",
-      artist: "Imagine Dragons",
-      image: "https://picsum.photos/200?1",
-    },
-    {
-      id: 2,
-      title: "Perfect",
-      artist: "Ed Sheeran",
-      image: "https://picsum.photos/200?2",
-    },
-    {
-      id: 3,
-      title: "Blinding Lights",
-      artist: "The Weeknd",
-      image: "https://picsum.photos/200?3",
-    },
-  ];
+export default function SongList( {songs, search, favorites, toggleFavorite, showFavorites=false, playlist, togglePlaylist, showPlaylist=false } ) {
+  
 
   // searching
   const query = search?.toLowerCase() ?? "";
