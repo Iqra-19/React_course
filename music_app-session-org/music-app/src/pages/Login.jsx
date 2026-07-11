@@ -44,13 +44,19 @@ export default function Login() {
             return;
         }
 
-        localStorage.setItem("currentUser", JSON.stringify(user));
+        sessionStorage.setItem("currentUser", JSON.stringify( {
+            id: user.id,
+            name: user.name, 
+            email: user.email
+        } ));
 
         setEmail("");
         setPassword("")
         setError("");
 
-        navigate("/home")
+        navigate("/home",)
+
+
     }
   
     return (
@@ -100,10 +106,10 @@ export default function Login() {
             </div>
 
              <p>
-                Don't have an account
+                New User?
                 <button 
                     type="button" 
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/register")}
                 >
                     Register
                 </button>

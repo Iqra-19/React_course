@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom';
 
-export default function Layout( {search, setSearch,  theme, toggleTheme} ) {
+export default function Layout( {search, setSearch} ) {
   
     return (
     <div className="home">
@@ -15,8 +15,6 @@ export default function Layout( {search, setSearch,  theme, toggleTheme} ) {
             <Navbar 
               search={search}
               setSearch={setSearch}
-               theme={theme}
-                toggleTheme={toggleTheme}
             />
 
             <Outlet context = {{search}} />

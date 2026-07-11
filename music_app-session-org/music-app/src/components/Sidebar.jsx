@@ -1,14 +1,14 @@
-import { Link, replace, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 
 export default function Sidebar() {
   
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    navigate("/login", { replace: true})
+    sessionStorage.removeItem("currentUser");
+      navigate("/login");
   }
-
+ 
   return (
     <aside className="sidebar">
       <h2>🎵 Music App</h2>
@@ -21,7 +21,7 @@ export default function Sidebar() {
 
       <Link to="/recent">🕒 Recently Played</Link>
 
-      <button onClick={handleLogout} >Logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </aside>
   );
 }

@@ -1,6 +1,7 @@
-export default function Navbar( {search, setSearch, theme, toggleTheme} ) {
+export default function Navbar( {search, setSearch} ) {
   
-   const currentUser = JSON.parse( localStorage.getItem ("currentUser")  );
+    const currentUser = JSON.parse( sessionStorage.getItem ("currentUser")  );
+
     return (
     
     <nav className="navbar">
@@ -17,15 +18,8 @@ export default function Navbar( {search, setSearch, theme, toggleTheme} ) {
       />
 
       <div className="user">
-        Welcome, {currentUser?.name}
+        Welcome {currentUser?.name}
       </div>
-
-      <button
-        className="theme-btn"
-        onClick={toggleTheme}
-      >
-        {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-      </button>
     </nav>
   );
 }
