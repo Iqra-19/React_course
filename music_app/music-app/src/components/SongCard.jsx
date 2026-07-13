@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
-export default function SongCard({ song, favorites, toggleFavorite, playlist, togglePlaylist  }) {
-  
-  const isFavorite = favorites.includes(song.id);   // True or false
-  const isInPlaylist = playlist.includes(song.id);
+export default function SongCard({ song, favorites, toggleFavorite, playlist, togglePlaylist }) {
+
+  const isFavorite = favorites.some((fav) => fav.id === song.id);
+  const isInPlaylist = playlist.some((p) => p.id === song.id);
 
   return (
     <div className="song-card">
@@ -22,17 +22,17 @@ export default function SongCard({ song, favorites, toggleFavorite, playlist, to
       <div className="song-actions">
         <button>▶</button>
 
-        <button onClick={ () => toggleFavorite (song.id)  }  >
-             <FontAwesomeIcon
-              className={isFavorite ? "heart active" : "heart"}
-              icon={isFavorite ? solidHeart : regularHeart}
-            />
+        <button onClick={() => toggleFavorite(song)}  >
+          <FontAwesomeIcon
+            className={isFavorite ? "heart active" : "heart"}
+            icon={isFavorite ? solidHeart : regularHeart}
+          />
         </button>
 
-        <button onClick={() => togglePlaylist(song.id)}>
+        <button onClick={() => togglePlaylist(song)}>
           {isInPlaylist ? "✔️" : "➕"}
-      </button>
-        
+        </button>
+
       </div>
 
     </div>

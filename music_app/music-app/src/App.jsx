@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
@@ -14,7 +14,7 @@ import Layout from "./components/Layout";
 
 
 function App() {
-  
+
   const [songs, setSongs] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,162 +27,170 @@ function App() {
   const clientId = import.meta.env.VITE_JAMENDO_CLIENT_ID;
 
   const searchTerm = debouncedSearch.trim() || "music";
-  
+
   useEffect(() => {
-  const timer = setTimeout(() => {
-    setDebouncedSearch(search);
-  }, 500);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
 
-  return () => {
-    clearTimeout(timer);
-  };
-}, [search]);
-  
-  useEffect( () => {
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search]);
 
-      setLoading(true);
-      setFetchError("");
+  useEffect(() => {
 
-      fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=20&search=${encodeURIComponent(searchTerm)}`)
-      .then ( (response) => {
-        if(!response.ok) {
+    setLoading(true);
+    setFetchError("");
+
+    fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=20&search=${encodeURIComponent(searchTerm)}`)
+      .then((response) => {
+        if (!response.ok) {
           throw new Error(`HTTP Error: ${response.status}`);
         }
         return response.json();
       })
-      .then ( (data) => {
+      .then((data) => {
         //console.log(data.results[0]);
         // console.log(Object.keys(data.results[0]));
 
         /* console.log("Search term:", searchTerm);
         console.log("Jamendo response:", data);
-        console.log("Songs returned:", data.results); */ 
+        console.log("Songs returned:", data.results); */
 
-        if(!data.results){
+        if (!data.results) {
           setFetchError("Unable to load songs. Please check your internet connection.");
           return;
         }
-        
-     if (data.results.length === 0) {
-      console.warn("Jamendo returned an empty result");
-      return;
-    }
 
-    const formattedSongs = data.results.map((song) => ({
-      id: song.id,
-      title: song.name,
-      artist: song.artist_name,
-      image: song.image,
-    }));
+        if (data.results.length === 0) {
+          console.warn("Jamendo returned an empty result");
+          return;
+        }
 
-    setSongs(formattedSongs);
-      } )
-      .catch( (error) =>{
+        const formattedSongs = data.results.map((song) => ({
+          id: song.id,
+          title: song.name,
+          artist: song.artist_name,
+          image: song.image,
+        }));
+
+        setSongs(formattedSongs);
+      })
+      .catch((error) => {
         console.error("Failed to fetch songs: ", error);
-         setFetchError("Unable to load songs. Please check your internet connection.");
-      } )
+        setFetchError("Unable to load songs. Please check your internet connection.");
+      })
       .finally(() => {
         setLoading(false);
       });
-    }, [searchTerm] );
+  }, [searchTerm]);
 
 
-    const toggleTheme = () => {
-      const newTheme = theme === "dark" ? "light" : "dark";
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
 
-      setTheme(newTheme);
-      localStorage.setItem("theme", newTheme);
-    };
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
   // This part cut from Home.jsx
   const [favorites, setFavorites] = useState(
-      JSON.parse(localStorage.getItem("favorites")) || []
-    );
-  
-    const toggleFavorite = (songId) => {
-      let updatedFavorites;
-  
-      if(favorites.includes(songId)){               // return true of false  
-        updatedFavorites = favorites.filter( (id) => id !== songId );  // if already favorite remove it 
-      }
-      else{
-        updatedFavorites = [...favorites, songId];
-      }
-  
-      setFavorites(updatedFavorites);
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    JSON.parse(localStorage.getItem("favorites")) || []
+  );
+
+  const toggleFavorite = (song) => {
+
+    const exists = favorites.some((fav) => fav.id === song.id);
+
+    let updatedFavorites;
+
+    if (exists) {
+      updatedFavorites = favorites.filter((fav) => fav.id !== song.id);
+    } else {
+      updatedFavorites = [...favorites, song];
     }
 
-    // Playlist
-    const [playlist, setPlaylist] = useState(
-      JSON.parse( localStorage.getItem("playlist") ) || []
+    setFavorites(updatedFavorites);
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify(updatedFavorites)
     );
+  };
 
-    const togglePlaylist = (songId) => {
-      let updatedPlaylist;
+  // Playlist
+  const [playlist, setPlaylist] = useState(
+    JSON.parse(localStorage.getItem("playlist")) || []
+  );
 
-      if(playlist.includes(songId)) {
-        updatedPlaylist = playlist.filter( (id) => id !== songId );
-      }
-      else{
-        updatedPlaylist = [ ...playlist, songId ];
-      }
+  const togglePlaylist = (song) => {
 
-      setPlaylist(updatedPlaylist);
-      localStorage.setItem("playlist", JSON.stringify(updatedPlaylist));
+    const exists = playlist.some((s) => s.id === song.id);
+
+    let updatedPlaylist;
+
+    if (exists) {
+      updatedPlaylist = playlist.filter((s) => s.id !== song.id);
     }
-    
+    else {
+      updatedPlaylist = [...playlist, song];
+    }
+
+    setPlaylist(updatedPlaylist);
+    localStorage.setItem("playlist", JSON.stringify(updatedPlaylist));
+  }
+
   return (
-    <div className= {theme} >
+    <div className={theme} >
       <BrowserRouter>
         <Routes>
 
           {/* Routes with layout */}
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          
-          <Route element={<ProtectedRoute/>} >
-          
-           {/* Routes with layout */}
-          <Route element = { <Layout  search = {search} setSearch = {setSearch}  theme={theme}toggleTheme={toggleTheme}/> }>
-            <Route 
-              path="/home" 
-              element={<Home          
-                songs = {songs}
-                loading = {loading}
-                fetchError={fetchError}
-                favorites={favorites} 
-                toggleFavorite={toggleFavorite}
-                playlist={playlist}
-                togglePlaylist={togglePlaylist}
-              />} 
-            />
 
-            <Route 
-                path="/favorites" 
-                element={ 
-                  <Favorites 
-                      songs = {songs}
-                      favorites={favorites} 
-                      toggleFavorite={toggleFavorite}
-                      playlist={playlist}
-                      togglePlaylist={togglePlaylist}
-                /> 
-              }  
-            />
+          <Route element={<ProtectedRoute />} >
 
-            <Route
-              path="/playlist"
-              element={
-                  <Playlist
-                      songs = {songs}
-                      favorites={favorites}
-                      toggleFavorite={toggleFavorite}
-                      playlist={playlist}
-                      togglePlaylist={togglePlaylist}
+            {/* Routes with layout */}
+            <Route element={<Layout search={search} setSearch={setSearch} theme={theme} toggleTheme={toggleTheme} />}>
+              <Route
+                path="/home"
+                element={<Home
+                  songs={songs}
+                  loading={loading}
+                  fetchError={fetchError}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                  playlist={playlist}
+                  togglePlaylist={togglePlaylist}
+                />}
+              />
+
+              <Route
+                path="/favorites"
+                element={
+                  <Favorites
+                    songs={songs}
+                    favorites={favorites}
+                    toggleFavorite={toggleFavorite}
+                    playlist={playlist}
+                    togglePlaylist={togglePlaylist}
                   />
-              }
-          />
+                }
+              />
+
+              <Route
+                path="/playlist"
+                element={
+                  <Playlist
+                    songs={songs}
+                    favorites={favorites}
+                    toggleFavorite={toggleFavorite}
+                    playlist={playlist}
+                    togglePlaylist={togglePlaylist}
+                  />
+                }
+              />
             </Route>
 
           </Route>
