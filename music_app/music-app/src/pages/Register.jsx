@@ -78,66 +78,68 @@ export default function Register() {
 
     return (
     <div>
-        <form className='form' onSubmit={handleSubmit}>
+        <div className="auth-page">
+             <form className='form' onSubmit={handleSubmit}>
 
-            <h2>Create Account</h2>
+                <h2>Create Account</h2>
 
-            <div className='input-filed'>
-                <label>Name:</label> <br />
-                <input 
-                    type="text" 
-                    value={name}
-                    onChange={ (e) => {
-                        setName(e.target.value);
-                    } }
-                />
-            </div>
-            <div className='input-filed'>
-                <label>Email:</label> <br />
-                <input 
-                    type="email" 
-                    value={email}
-                    onChange={ (e) => {
-                        setEmail(e.target.value);
-                    } }  
-                />
-            </div>
-            <div className='input-filed'>
-                <label>Password:</label> <br />
-                <input 
-                    type="password" 
-                    value={password}
-                    onChange={ (e) => {
-                        setPassword(e.target.value);
-                    } }
-                />
-            </div>
+                <div className='input-filed'>
+                    <label>Name:</label> <br />
+                    <input 
+                        type="text" 
+                        value={name}
+                        onChange={ (e) => {
+                            setName(e.target.value);
+                        } }
+                    />
+                </div>
+                <div className='input-filed'>
+                    <label>Email:</label> <br />
+                    <input 
+                        type="email" 
+                        value={email}
+                        onChange={ (e) => {
+                            setEmail(e.target.value);
+                        } }  
+                    />
+                </div>
+                <div className='input-filed'>
+                    <label>Password:</label> <br />
+                    <input 
+                        type="password" 
+                        value={password}
+                        onChange={ (e) => {
+                            setPassword(e.target.value);
+                        } }
+                    />
+                </div>
 
-            <div className='register-btn'>
-                <button 
-                    type='submit'
-                    disabled={
-                        !name.trim() ||
-                        !email.trim() ||
-                        !password.trim()
-                    }
-                > Register </button>
-            </div>
+                <div className='register-btn'>
+                    <button 
+                        type='submit'
+                        disabled={
+                            !name.trim() ||
+                            !email.trim() ||
+                            !password.trim()
+                        }
+                    > Register </button>
+                </div>
 
-            <div>
-                {error && <p>{error}</p>}
-            </div>
+                <div>
+                    {error && <p>{error}</p>}
+                </div>
 
-            <p>
-                Already have an account?
-                <button 
-                    type="button" 
-                    onClick={() => navigate("/login")}
-                >
-                    Login
-                </button>
-            </p>
-         </form>
+                <p>
+                    Already have an account?
+                    <button 
+                        type="button" 
+                        onClick={() => navigate("/login")}
+                    >
+                        Login
+                    </button>
+                </p>
+            </form>
+        </div>
     </div>
   )
 }

@@ -54,7 +54,7 @@ export default function Login() {
     }
   
     return (
-    <div>
+    <div className='auth-page'>
         <form className="form" onSubmit={handleSubmit} >
 
             <h2>Welcome Back</h2>
