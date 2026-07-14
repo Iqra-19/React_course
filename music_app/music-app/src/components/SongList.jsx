@@ -16,8 +16,8 @@ export default function SongList({ songs, search, favorites, toggleFavorite, sho
   if (showFavorites) {
     displaySongs = favorites.filter((song) => {
       return (
-        song.title.toLowerCase().includes(query) ||
-        song.artist.toLowerCase().includes(query)
+        song.title?.toLowerCase().includes(query) ||
+        song.artist?.toLowerCase().includes(query)
       );
     });
   } else {
@@ -30,8 +30,8 @@ export default function SongList({ songs, search, favorites, toggleFavorite, sho
   let finalSongs;
   if (showPlaylist) {
     finalSongs = playlist.filter((song) => {
-      const titleMatch = song.title.toLowerCase().includes(query);
-      const artistMatch = song.artist.toLowerCase().includes(query);
+      const titleMatch = song?.title?.toLowerCase().includes(query);
+      const artistMatch = song?.artist?.toLowerCase().includes(query);
 
       return titleMatch || artistMatch;
     });
@@ -55,3 +55,5 @@ export default function SongList({ songs, search, favorites, toggleFavorite, sho
     </div>
   );
 }
+
+

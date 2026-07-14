@@ -17,7 +17,7 @@ function App() {
 
   const [songs, setSongs] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [theme, setTheme] = useState(
@@ -26,7 +26,7 @@ function App() {
 
   const clientId = import.meta.env.VITE_JAMENDO_CLIENT_ID;
 
-  const searchTerm = debouncedSearch.trim() || "music";
+  const searchTerm = debouncedSearch.trim();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,7 +43,12 @@ function App() {
     setLoading(true);
     setFetchError("");
 
-    fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=20&search=${encodeURIComponent(searchTerm)}`)
+    const url = searchTerm
+      ? `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=20&namesearch=${encodeURIComponent(searchTerm)}`
+      : `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=20&order=popularity_total`;
+
+
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP Error: ${response.status}`);
@@ -54,9 +59,9 @@ function App() {
         //console.log(data.results[0]);
         // console.log(Object.keys(data.results[0]));
 
-        /* console.log("Search term:", searchTerm);
+        /* console.log("Search term:", searchTerm); */
         console.log("Jamendo response:", data);
-        console.log("Songs returned:", data.results); */
+        /*console.log("Songs returned:", data.results); */
 
         if (!data.results) {
           setFetchError("Unable to load songs. Please check your internet connection.");
@@ -65,8 +70,10 @@ function App() {
 
         if (data.results.length === 0) {
           console.warn("Jamendo returned an empty result");
+          setSongs([]);
           return;
         }
+
 
         const formattedSongs = data.results.map((song) => ({
           id: song.id,
