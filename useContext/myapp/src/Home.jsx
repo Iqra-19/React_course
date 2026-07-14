@@ -4,7 +4,7 @@ import { ThemeContext } from './context/ThemeContext';
 
 export default function Home() {
   
-  const {user   } = useContext(UserContext);
+  const {user } = useContext(UserContext);
   const {theme} = useContext(ThemeContext);
   const {toggleTheme} = useContext(ThemeContext);
     return (
